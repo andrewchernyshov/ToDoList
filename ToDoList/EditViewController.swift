@@ -8,9 +8,15 @@
 
 import UIKit
 
+
 class EditViewController: UIViewController, UITextFieldDelegate {
     
+    var saveCompletionBlock: ((NSDictionary) -> Void)?
+    var taskToEdit:NSDictionary?
+
+    
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
+        saveButtonPressed(sender)
         self.dismissViewControllerAnimated(false, completion: nil)
     }
     
@@ -25,25 +31,37 @@ class EditViewController: UIViewController, UITextFieldDelegate {
             task.updateValue(toDo, forKey: "task")
         }
         
-        NSUserDefaults.standardUserDefaults().setObject([task], forKey: "taskList")
-        
+        if let completion = saveCompletionBlock {
+            completion(task)
+        }
+        self.dismissViewControllerAnimated(false, completion: nil)
     }
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var taskTextField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    @IBOutlet weak var removeButton: UIButton!
     
+    @IBAction func removeTaskButtonIsPressed(sender: UIButton) {
+        
+        self.dismissViewControllerAnimated(false, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         saveButton.enabled = false
+        removeButton.enabled = false
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textFieldDidChange(_:)), name: UITextFieldTextDidChangeNotification, object: nil)
+        if titleTextField.text?.isEmpty != nil || taskTextField.text != nil {
+            removeButton.enabled = true
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,24 +80,16 @@ class EditViewController: UIViewController, UITextFieldDelegate {
     
         if let _ = titleTextField.text {
             saveButton.enabled = true
+            removeButton.enabled = true
         } else {
             if let _ = taskTextField.text {
                 saveButton.enabled = true
+                removeButton.enabled = true
             }
         }
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
-        saveButton.enabled = false
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-//        
-//        NSNotificationCenter.defaultCenter().removeObserver(self, forKeyPath: UITextFieldTextDidChangeNotification)
-    }
-        
-    }
+}
     
     
     

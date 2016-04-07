@@ -14,15 +14,29 @@ class TaskListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func addTaskButtonPressed(sender: UIBarButtonItem) {
         
-        let editVC = storyboard!.instantiateViewControllerWithIdentifier("EditViewController");
+        let editVC = storyboard!.instantiateViewControllerWithIdentifier("EditViewController") as! EditViewController
+        editVC.saveCompletionBlock = {(userTask:NSDictionary) ->Void in
+        self.saveUserTask(userTask: userTask)
+        }
         self.presentViewController(editVC, animated: false, completion: nil)
         
     }
-    var toDoList = NSUserDefaults.standardUserDefaults().objectForKey("taskList") ?? [NSDictionary]()
+    
+    var toDoList = NSUserDefaults.standardUserDefaults().objectForKey("taskList") as? [NSDictionary] ?? [NSDictionary]()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        tableView.reloadData()
+    }
+    
+    func saveUserTask (userTask task:NSDictionary?) -> Void {
+        
+        if let currentTask = task {
+            (toDoList.append(currentTask))
+        }
+        
+        NSUserDefaults.standardUserDefaults().setObject(toDoList, forKey: "taskList")
         tableView.reloadData()
     }
     
@@ -46,22 +60,30 @@ class TaskListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
         
-        let task = toDoList [indexPath.row] as! NSDictionary
+        let task = toDoList [indexPath.row]
         
         cell.textLabel?.text = task.valueForKey("title") as? String
         cell.detailTextLabel?.text = task.valueForKey("task") as? String
-
-        
         
         return cell
     }
-            
-            
-            
-    
-    
-    
-    
 
+    
+    //MARK: - TableView Delegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let editVC = storyboard!.instantiateViewControllerWithIdentifier("EditViewController") as! EditViewController
+        editVC.saveCompletionBlock = {(userTask:NSDictionary) ->Void in
+            self.saveUserTask(userTask: userTask)
+        }
+        self.presentViewController(editVC, animated: false, completion: {
+            let chosenTask = self.toDoList.removeAtIndex(indexPath.row)
+            self.saveUserTask(userTask: nil)
+            editVC.taskTextField.text = chosenTask.valueForKey("task") as? String
+            editVC.titleTextField.text = chosenTask.valueForKey("title") as? String
+        })
+        
+    }
 }
 

@@ -13,7 +13,6 @@
 		EB266A0C1CB59B39004E0BF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB266A0B1CB59B39004E0BF1 /* Assets.xcassets */; };
 		EB266A0F1CB59B39004E0BF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB266A0D1CB59B39004E0BF1 /* LaunchScreen.storyboard */; };
 		EB266A171CB59B78004E0BF1 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB266A161CB59B78004E0BF1 /* EditViewController.swift */; };
-		EB266A1B1CB59FC9004E0BF1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB266A1A1CB59FC9004E0BF1 /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		EB266A0E1CB59B39004E0BF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB266A101CB59B39004E0BF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB266A161CB59B78004E0BF1 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
-		EB266A1A1CB59FC9004E0BF1 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +59,6 @@
 				EB266A041CB59B39004E0BF1 /* AppDelegate.swift */,
 				EB266A061CB59B39004E0BF1 /* TaskListViewController.swift */,
 				EB266A161CB59B78004E0BF1 /* EditViewController.swift */,
-				EB266A1A1CB59FC9004E0BF1 /* Task.swift */,
 				EB266A081CB59B39004E0BF1 /* Main.storyboard */,
 				EB266A0B1CB59B39004E0BF1 /* Assets.xcassets */,
 				EB266A0D1CB59B39004E0BF1 /* LaunchScreen.storyboard */,
@@ -142,7 +139,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB266A1B1CB59FC9004E0BF1 /* Task.swift in Sources */,
 				EB266A071CB59B39004E0BF1 /* TaskListViewController.swift in Sources */,
 				EB266A051CB59B39004E0BF1 /* AppDelegate.swift in Sources */,
 				EB266A171CB59B78004E0BF1 /* EditViewController.swift in Sources */,
@@ -297,6 +293,7 @@
 				EB266A151CB59B39004E0BF1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
